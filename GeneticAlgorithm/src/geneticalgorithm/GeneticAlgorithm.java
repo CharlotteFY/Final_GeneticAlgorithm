@@ -113,7 +113,7 @@ public class GeneticAlgorithm {
                          Matrix[j]=1;
                          
                          //
-                       population[i].fitness += totalDistanceInMatrix[j];
+                      // population[i].fitness += totalDistanceInMatrix[j];
                          
                      }
                      else if(population[i].gene[j] == 0){
@@ -124,7 +124,8 @@ public class GeneticAlgorithm {
                  //for(int u =0; u<lchrom ;u++){
                      //System.out.println(updatemartix(inputMatrix,Matrix)[u]);
                      //if(Matrix[u]==1){
-                     //population[i].fitness = updateMatrix(inputMatrix,Matrix);
+                     //updateFitnessInMatrix
+                     population[i].fitness = updateFitnessInMatrix(inputMatrix,Matrix);//updateMatrix(inputMatrix,Matrix);
                      //}
                  //}
                  for(int a =0;a<popsize;a++){
@@ -385,5 +386,88 @@ public class GeneticAlgorithm {
         return answer;
  
     }
+     public static int updateFitnessInMatrix(int[][] matrix, int[] gen) {
+ 
+        int[][] newMatrix = new int[matrix.length][matrix.length];
+        int[] selected = new int[gen.length];
+        ArrayList<Integer> pointstatoin  = new ArrayList<>();
+        int[] result = new int[matrix.length]; 
+        int answer = 0;
+        for(int a =0;a<matrix.length;a++){
+            for(int b =0;b < matrix.length;b++){
+                newMatrix[a][b] = matrix[a][b];
+            }
+        }
+        for(int c =0;c < gen.length;c++){
+                selected[c] = gen[c];
+                if(selected[c]==1){
+                    pointstatoin.add(c);
+                }
+        }
+        for(int i=0;i < gen.length;i++){
+                if(selected[i] == 0){
+                    int min = Integer.MAX_VALUE;
+                    for(int p = 0;p<pointstatoin.size();p++){
+                        int point = pointstatoin.get(p);
+                        if(newMatrix[i][point]<min){
+                            min=newMatrix[i][point];
+                        }
+                    }
+                    answer+=min;
+                }
+                else{
+                    
+                }
+       
+        }
+       //for(int p = 0;p<pointstatoin.size();p++){
+           
+           
+       //}
+        return answer;
+     }
 }
+     
+        //initialize
+        /*for(int i=0;i<result.length;++i) result[i] = 0;
+ 
+        for(int i=0;i<gen.length;++i) { // 5 round
+ 
+            if(gen[i] == 0) continue;
+ 
+            /**
+             * 11 12 13 14 15
+             * 21 22 23 24 25
+             * 31 32 33 34 35
+             * 41 42 43 44 45
+             * 51 52 53 54 55
+             */
+ 
+            /*for(int k=0;k<gen.length;++k) {
+                for(int j=0;j<gen.length;++j) {
+                    if(selected[k] == -1) continue;
+                    result[k] += newMatrix[j][k];
+                }
+            }
+            selected[i] = -1;
+            answer+=result[i];
+ 
+           // print(newMatrix, result);
+ 
+ 
+            for(int k=0;k<gen.length;++k) {
+                newMatrix[i][k] = 0;
+                if(selected[k] != -1) {
+                    result[k] = 0;
+                }
+            }
+        }
+        //for(int i=0;i<newMatrix.length;++i){
+            //System.out.print(answer);
+            //System.out.print("");
+       // }     
+        return answer;
+ 
+    }*/
+
 
